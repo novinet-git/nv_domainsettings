@@ -23,7 +23,9 @@
         $oQuery = rex_yform_manager_table::get('nv_domainsettings')->query();
         $oQuery->where('domains_id', $iDomainsId, '=');
         $oItem = $oQuery->findOne();
-      
+        if (!count($oItem)) {
+            return;
+        }
 
         if (!$oItem->getValue('id')) {
             //return "nvDomainSettings | Domain not found in nvDomainSettings";
@@ -43,7 +45,7 @@
         if ($sKey != "") {
             return $oItem->getValue($sKey);
         } else {
-            return $oItem;
+            return $oItem->getData();
         }
     }
 }
